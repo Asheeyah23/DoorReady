@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens live in tailwind.config.ts. This file holds the handful of
+   things Tailwind utilities can't express cleanly: the citation chip
+   (the product's signature element), focus states, and reduced-motion. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.teal.500");
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: theme("colors.teal.200");
+  }
+}
+
+@layer components {
+  /* The signature element: every claim DoorReady makes carries one of these. */
+  .cite-chip {
+    @apply inline-flex items-center gap-1.5 font-mono text-[11.5px] font-medium
+      text-teal-700 bg-teal-50 border border-teal-200 rounded-full
+      px-2.5 py-1 cursor-pointer transition-all hover:bg-teal-100 hover:border-teal-500 hover:-translate-y-px;
+  }
+  .gap-chip {
+    @apply inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold
+      text-orange-600 bg-orange-100 border border-orange-500/30 rounded-full px-2.5 py-1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
